@@ -1,0 +1,32 @@
+// Place all the styles related to the Song controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+* {
+  font-size: 1.6em;
+  margin-top: 3px;
+}
+
+nav a.center {
+  text-align: center;
+  margin: 0 auto;
+  color: green;
+  display: block;
+}
+
+#about-link {
+  margin-top: 28px;
+}
+
+#get-song {
+  position: relative;
+  text-align: center;
+  top: 150px;
+  font-size: 0.8em;
+}
+
+.center {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}

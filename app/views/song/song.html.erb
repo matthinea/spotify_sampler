@@ -1,0 +1,19 @@
+<%= render 'shared/nav' %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3> You are listening to
+
+        <%= @track.name %> from the album <%= @track.album.name %> by
+        <%= @track.artists.each.map{|x| x.name}.to_sentence %>.
+        <audio controls autoplay>
+          <source src="<%= @track.preview_url %>" type="audio/mpeg">
+              Your browser does not support the audio element.
+        </audio>
+
+           
+          </h3>
+        </div>
+      </div>
+    </div>

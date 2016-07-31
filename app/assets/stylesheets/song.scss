@@ -16,17 +16,33 @@ nav a.center {
 
 #about-link {
   margin-top: 28px;
+  font-size: 0.8em;
+  padding: 10px;
+  border: 1px solid green;
+  padding-right: 76px;
 }
 
 #get-song {
   position: relative;
   text-align: center;
-  top: 150px;
-  font-size: 0.8em;
+  top: 140px;
+  font-size: 1.2em;
 }
 
 .center {
   text-align: center;
   margin: 0 auto;
   display: block;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+.grey {
+  color: #484848;
+}
+
+.history {
+  font-size: 8px;
 }

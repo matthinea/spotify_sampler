@@ -1,19 +1,41 @@
 <%= render 'shared/nav' %>
-
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
+      <h4 id="seed-word">Seed word: <%= @word %> </h4>
       <h3> You are listening to
-
-        <%= @track.name %> from the album <%= @track.album.name %> by
+        <%= @track.name %> from the album <%= link_to @track.album.name, @track.album.external_urls %> by
         <%= @track.artists.each.map{|x| x.name}.to_sentence %>.
         <audio controls autoplay>
           <source src="<%= @track.preview_url %>" type="audio/mpeg">
-              Your browser does not support the audio element.
-        </audio>
-
-           
-          </h3>
-        </div>
-      </div>
+            Sorry, your browser does not support embedded audio playback.
+          </audio>
+      </h3>
     </div>
+  </div>
+</div>
+<% length = session[:history].length %>
+<% if length > 1 %>
+  <div class="container">
+    <div class="row">
+      <h3 class="center">
+        Recently played tracks:
+      </h3>
+    </div>
+    <div class="row table-header">
+      <div class="col-xs-4">Track</div>
+      <div class="col-xs-4">Album</div>
+      <div class="col-xs-4">Artist(s)</div>
+    </div>
+    <% session[:history][0..length - 2].each do |track| %>
+      <div class="row history">
+        <% title = track[0] %> 
+        <% album = track[1] %> 
+        <% artists = track[2] %>
+        <div class="col-xs-4 history"><%= title %></div>
+        <div class="col-xs-4 history"><%= album %></div>        
+        <div class="col-xs-4 history"><%= artists%></div>
+      </div>
+    <% end %>
+  <% end %>
+  </div>

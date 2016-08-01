@@ -3,14 +3,19 @@
   <div class="row">
     <div class="col-xs-12">
       <h4 id="seed-word">Seed word: <%= @word %> </h4>
-      <h3> You are listening to
-        <%= @track.name %> from the album <%= link_to @track.album.name, @track.album.external_urls %> by
+      <h3 id="listening-info"> You are listening to
+        <%= @track.name %> from the album <%= @track.album.name %> by
         <%= @track.artists.each.map{|x| x.name}.to_sentence %>.
         <audio controls autoplay>
           <source src="<%= @track.preview_url %>" type="audio/mpeg">
             Sorry, your browser does not support embedded audio playback.
           </audio>
       </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3 class="center"><%= link_to "Get another song.", song_path, id: "play-again-link" %></h3>
     </div>
   </div>
 </div>
@@ -20,24 +25,33 @@
     <div class="row">
       <div class="col-xs-12">
         <h3 id="recently-played-txt">
-          Recently played tracks:
+          You've recently listened to:
         </h3>
       </div>
     </div>
-    <div class="row" id="table-header">
-      <div class="col-xs-3 col-xs-offset-1">Track</div>
-      <div class="col-xs-3 col-xs-offset-1">Album</div>
-      <div class="col-xs-3 col-xs-offset-1">Artist(s)</div>
-    </div>
-    <% session[:history][0..length - 2].each do |track| %>
-      <div class="row">
-        <% title = track[0] %> 
-        <% album = track[1] %> 
-        <% artists = track[2] %>
-        <div class="col-xs-3 col-xs-offset-1 history"><%= title %></div>
-        <div class="col-xs-3 col-xs-offset-1 history"><%= album %></div>        
-        <div class="col-xs-3 col-xs-offset-1 history"><%= artists%></div>
-      </div>
+
+    <table class="table table-hover">
+      <thead>
+        <tr id="table-header">
+          <th>Track</th>
+          <th>Album</th>
+          <th>Artist(s)</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% (length - 2).downto(0).each do |idx| %>
+        <tr class="history">
+          <% title = session[:history][idx][0] %> 
+          <% album = session[:history][idx][1] %> 
+          <% artists = session[:history][idx][2] %>
+          <% time = session[:history][idx][3] %>
+          <td><%= title %></td>
+          <td><%= album %></td>        
+          <td><%= artists%></td>
+          <td><%= time %></td>
+        </tr>
+      <% end %>
+      <tbody>
+    </table>
     <% end %>
-  <% end %>
-  </div>

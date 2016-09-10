@@ -4,6 +4,7 @@ gem 'rspotify'
 gem 'httparty'
 gem 'figaro'
 gem 'rails_12factor'
+gem 'knjrbfw'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'

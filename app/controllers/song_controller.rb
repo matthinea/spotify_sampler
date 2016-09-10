@@ -24,22 +24,31 @@ class SongController < ApplicationController
   private 
 
   def get_song(access_token)
-    word = Word.all.sample
-    entry = word.entry.chomp
 
-    response = get_api_response(access_token, entry)
-    
-    tracks = parse_response_for_track_list(response)
+    tracks = []
 
-    if tracks.empty? 
-      word.destroy!
-      get_song(access_token)
-    end
+    loop do
+
+      word = Word.all.sample
+      @word = word.entry.chomp
+
+      response = search_using_keyword(access_token, @word)
+
+      tracks = parse_response_for_track_list(response)
+      if tracks.empty?
+        word.destroy!
+      else
+        break
+      end
+    end 
+
+    # while tracks is empty
+    # keep getting a new word and hitting the API with that word
+    # until tracks is not empty
 
     @track = tracks.sample
-    @word = entry
-
     add_track_info_to_session_history(@track)
+    session[:history].shift if session[:history].size > 10
   end
 
   def retrieve_access_token
@@ -57,7 +66,7 @@ class SongController < ApplicationController
     access_token = JSON.parse(response.body)["access_token"]
   end
 
-  def get_api_response(access_token, search_word)
+  def search_using_keyword(access_token, search_word)
     uri = URI.parse("https://api.spotify.com/v1/search?q=#{search_word}&limit=40&type=track")
     request = Net::HTTP::Get.new(uri)
     request["Authorization"] = "Bearer #{access_token}"

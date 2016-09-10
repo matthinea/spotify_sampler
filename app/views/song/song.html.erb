@@ -3,19 +3,20 @@
   <div class="row">
     <div class="col-xs-12">
       <h4 id="seed-word">Seed word: <%= @word %> </h4>
-      <h3 id="listening-info"> You are listening to
+      <h3 class="listening-info"> You are listening to
         <%= @track["name"] %> from the album <%= @track["album"]["name"] %> by
         <%= @track["artists"].each.map{|x| x["name"]}.to_sentence %>.
         <audio controls autoplay>
           <source src="<%= @track["preview_url"] %>" type="audio/mpeg">
             Sorry, your browser does not support embedded audio playback.
-          </audio>
+        </audio>
+        <%= link_to "Link", @track["preview_url"], class: "smaller-font" %>
       </h3>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <h3 class="center"><%= link_to "Get another song.", song_path, id: "play-again-link" %></h3>
+      <h3><%= link_to "Get another song", song_path, class: "btn btn-md btn-primary", id: "play-again-link" %></h3>
     </div>
   </div>
 </div>

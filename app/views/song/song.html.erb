@@ -4,10 +4,10 @@
     <div class="col-xs-12">
       <h4 id="seed-word">Seed word: <%= @word %> </h4>
       <h3 id="listening-info"> You are listening to
-        <%= @track.name %> from the album <%= @track.album.name %> by
-        <%= @track.artists.each.map{|x| x.name}.to_sentence %>.
+        <%= @track["name"] %> from the album <%= @track["album"]["name"] %> by
+        <%= @track["artists"].each.map{|x| x["name"]}.to_sentence %>.
         <audio controls autoplay>
-          <source src="<%= @track.preview_url %>" type="audio/mpeg">
+          <source src="<%= @track["preview_url"] %>" type="audio/mpeg">
             Sorry, your browser does not support embedded audio playback.
           </audio>
       </h3>
